@@ -47,7 +47,7 @@ export const getCafeManhasById = (req, res) => {
 export const getCafeManhaImgById = (req, res) => {
     const { id } = req.query;
     
-    const sql = "select * from receitas where id = ? where idCategoria = 2";
+    const sql = "select * from receitas where id = ? and idCategoria = 2";
 
     db.query(sql, [id], (err, data) => {
         if(err){
