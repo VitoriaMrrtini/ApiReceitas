@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers, addUser, updateUser, deleteUser, getUsersById, getUsersByNome } from '../controllers/userController.js';
+import { getUsers, addUser, updateUser, deleteUser, getUsersById, getUsersByNome, verificarcadastro } from '../controllers/userController.js';
 
 const router = express.Router();
 
@@ -18,6 +18,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", addUser);
+router.post("/verificarcadastro", verificarcadastro);
 router.put("/", updateUser);
 router.delete("/", deleteUser);
 

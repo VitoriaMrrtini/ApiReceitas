@@ -1,11 +1,22 @@
 import mysql from 'mysql2'
+import dotenv from 'dotenv'
 
-export const db = mysql.createConnection({
+dotenv.config();
+
+/*export const db = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
     password: "admin",
-    database: "produtos"
+    database: "lv_receitas"
+}); */
+
+export const db = mysql.createConnection({
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE
 });
 
 db.connect((err) => {
