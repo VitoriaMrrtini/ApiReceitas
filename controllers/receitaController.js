@@ -62,7 +62,7 @@ export const getReceitasImgById = (req, res) => {
 export const searchReceitas = (req, res) => {
     const { search } = req.query;
     
-    const sql = "SELECT * FROM receitas WHERE nome LIKE ? OR descricao LIKE ?";
+    const sql = "SELECT * FROM receitas WHERE titulo LIKE ?";
     const searchQuery = `%${search}%`;
 
     db.query(sql, [searchQuery, searchQuery], (err, data) => {
