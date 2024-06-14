@@ -62,15 +62,15 @@ export const getReceitasImgById = (req, res) => {
 export const searchReceitas = (req, res) => {
     const { search } = req.query;
     
-    const sql = "SELECT * FROM receitas WHERE titulo LIKE ?";
+    const sql = "SELECT id, titulo, img FROM receitas WHERE titulo LIKE ?";
     const searchQuery = `%${search}%`;
 
-    db.query(sql, [searchQuery, searchQuery], (err, data) => {
+    db.query(sql, [searchQuery], (err, data) => {
         if (err) {
-            console.log("Erro ao processar a requisição.");
+            console.error("Erro ao processar a requisição:", err);
             return res.status(500).json(err);
         } else {
-            console.log("Dados das receitas obtidas com sucesso.");
+            console.log("Dados das receitas obtidas com sucesso:", data);
             return res.status(200).json(data);
         }
     });
