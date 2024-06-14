@@ -108,15 +108,15 @@ export const getUsersBygenero = (req, res) => {
 }
 
 export const addUser = (req, res) => {
-    const sql = "INSERT INTO usuario (nome, senha, email, idade, genero) VALUES (?, ?, ?, ?, ?)";
+    const sql = "insert into usuario (nome, senha, email, idade, genero) values (?, ?, ?, ?, ?)";
 
-    const { nome, senha, email, idade, genero } = req.body;
+    const {nome, senha, email, idade, genero} = req.body;
 
     db.query(sql, [nome, senha, email, idade, genero], (err, data) => {
-        if (err) {
+        if(err){
             console.log("Erro ao processar a requisição.");
             return res.status(500).json(err);
-        } else {
+        }else{
             console.log("Usuário cadastrado com sucesso.");
             return res.status(201).json(data);
         }
