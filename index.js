@@ -8,6 +8,7 @@ import cafeTardeRoutes from './routes/cafeTarde.js'
 import cafeManhaRoutes from './routes/cafeManha.js'
 import jantarRoutes from './routes/jantar.js'
 import lancheRoutes from './routes/lanche.js'
+import favoritosRoutes from './routes/favoritos.js';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/cafeTarde", cafeTardeRoutes);
 app.use("/cafeManha", cafeManhaRoutes);
 app.use("/jantar", jantarRoutes);
 app.use("/lanche", lancheRoutes);
+app.use("/favoritos", favoritosRoutes);
 
 const port = process.env.PORT || 8080;
 

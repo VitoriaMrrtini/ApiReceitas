@@ -184,3 +184,57 @@ export const verificarcadastro = (req, res) => {
         });
     });
 }
+// userController.js
+
+export const addFavorite = (req, res) => {
+    const userId = req.params.userId;
+    const { recipeId } = req.body;
+
+    // Verifique se o favorito já existe para evitar duplicatas
+    db.query('SELECT * FROM favoritos WHERE userId = ? AND recipeId = ?', [userId, recipeId], (err, results) => {
+        if (err) {
+            console.error('Erro ao verificar favorito:', err);
+            return res.status(500).json({ message: 'Erro interno do servidor' });
+        }
+
+        if (results.length > 0) {
+            return res.status(400).json({ message: 'Receita já está nos favoritos' });
+        }
+
+        // Insira o favorito se não existir
+        db.query('INSERT INTO favoritos (userId, recipeId) VALUES (?, ?)', [userId, recipeId], (err, results) => {
+            if (err) {
+                console.error('Erro ao adicionar favorito:', err);
+                return res.status(500).json({ message: 'Erro interno do servidor' });
+            }
+
+            return res.status(201).json(results);
+        });
+    });
+};
+export const removeFavorite = (req, res) => {
+    const userId = req.params.userId;
+    const { recipeId } = req.params;
+
+    db.query('DELETE FROM favoritos WHERE userId = ? AND recipeId = ?', [userId, recipeId], (err, results) => {
+        if (err) {
+            console.error('Erro ao remover favorito:', err);
+            return res.status(500).json({ message: 'Erro interno do servidor' });
+        }
+
+        return res.status(200).json(results);
+    });
+};
+
+export const getFavoritesByUser = (req, res) => {
+    const userId = req.params.userId;
+
+    db.query('SELECT * FROM favoritos WHERE userId = ?', [userId], (err, results) => {
+        if (err) {
+            console.error('Erro ao obter favoritos:', err);
+            return res.status(500).json({ message: 'Erro interno do servidor' });
+        }
+
+        return res.status(200).json(results);
+    });
+};
